@@ -10,5 +10,5 @@ define ell- = e- mu- ta-
 generate p p > ell+ ell- [QCD] @0
 add process p p > ell+ ell- j [QCD] @1
 
-output dyellell01j_5f_NLO_FXFX_bias -nojpeg
+output dyellell01j_5f_NLO_FXFX_bias_3 -nojpeg
 
