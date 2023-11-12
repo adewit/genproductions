@@ -123,15 +123,15 @@ chmod 755 runcmsgrid_par.sh
 
 #cd $${WORKDIR}
 
-if [ "$$process" = "HJ" ]; then
-  echo "This process needs NNLOPS reweighting"
-  for i in `echo 11 22 0505`; do
-    ./mergedata 1 $${i}/*.top
-    mv fort.12 HNNLO-$${i}.top 
-  done
-  #force keep top in this case 
-  keepTop='1'
-fi
+#if [ "$$process" = "HJ" ]; then
+#  echo "This process needs NNLOPS reweighting"
+#  for i in `echo 11 22 0505`; do
+#    ./mergedata 1 $${i}/*.top
+#    mv fort.12 HNNLO-$${i}.top 
+#  done
+#  #force keep top in this case 
+#  keepTop='1'
+#fi
 
 if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
   if [ -e $${WORKDIR}/$${folderName}/MINLO-W1-denom.top ]; then

@@ -61,21 +61,21 @@ case $WHAT in
     ONESHOT )
         for PROC in ${PROCS[@]}
         do
-            python ./run_pwg_condor.py -p f -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
+            python ./run_pwg_condor.py -p f -i HJ_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
         done
     ;;
 
     GRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j ${NJOBS} --slc ${ARCH:3:1}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i HJ_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j ${NJOBS} --slc ${ARCH:3:1}
         done
     ;;
     
     DAG )
         for PROC in ${PROCS[@]}
         do
-            if [ ! -f "${PROC}-${SUFFIX}/pwg-st3-0000-stat.dat" ]; then
+            if [ ! -f "${PROC}-${SUFFIX}/pwg-st3-0001-stat.dat" ]; then
                 condor_submit_dag run_${PROC}-${SUFFIX}.dag
             fi
         done
@@ -84,28 +84,28 @@ case $WHAT in
     LONGGRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i HJ_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:workday --step3pilot -x 3 -j ${NJOBS}
         done
     ;;
     
     GRIDS1 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 1 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 1 -i HJ_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
         done
     ;;
     
     GRIDS2 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 2 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 2 -i HJ_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
         done
     ;;
     
     GRIDS3 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q longlunch -j ${NJOBS} --step3pilot &
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i HJ_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m HJ -f ${PROC}-${SUFFIX} -q longlunch -j ${NJOBS} --step3pilot &
         done
     ;;
     
@@ -113,8 +113,8 @@ case $WHAT in
         for PROC in ${PROCS[@]}
         do
             echo ${PROC}
-            cat ${PROC}-${SUFFIX}/pwg-st3-0000-stat.dat | grep total
-            cat ${PROC}-${SUFFIX}/pwg-st3-0000-stat.dat | grep suppression
+            cat ${PROC}-${SUFFIX}/pwg-st3-0001-stat.dat | grep total
+            cat ${PROC}-${SUFFIX}/pwg-st3-0001-stat.dat | grep suppression
         done
     ;;
     
@@ -124,8 +124,8 @@ case $WHAT in
         do
             python ./run_pwg_condor.py -p 9 -m HJ -f ${PROC}-${SUFFIX} 
         done
-        ./minnloHelper.sh PACK_REDUCED
-        ./minnloHelper.sh PACK_NORWL
+        ./minnloHelper_HJ.sh PACK_REDUCED
+        ./minnloHelper_HJ.sh PACK_NORWL
     ;;
     
     TEST )
